@@ -4,7 +4,7 @@ import appfx.cosmosdb as cosmosdb
 
 
 def test_package_imports() -> None:
-    assert cosmosdb.__version__ == "0.1.0"
+    assert cosmosdb.__version__ == "0.1.2"
 
 
 def test_namespace_packages_import() -> None:

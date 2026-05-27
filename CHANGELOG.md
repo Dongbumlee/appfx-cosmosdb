@@ -7,6 +7,13 @@ and this project aims to follow [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-05-27
+
+### Changed
+
+- Refreshed the PyPI long description so the published package metadata includes the README badge block.
+- Aligned README badges with the appfx package pattern.
+
 ## [0.1.1] - 2026-05-27
 
 ### Added
