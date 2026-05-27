@@ -226,8 +226,20 @@ sql_families = await sql_repo.find_async({
 })
 ```
 
+For generated SQL, SQL predicate field names and `SortField` names must be
+simple identifiers or dotted nested paths, such as `isRegistered` or
+`address.city`. Each segment must start with a letter or underscore and then use
+only letters, digits, or underscores. Invalid paths such as `address-city`,
+`address[0].city`, `name; DROP`, empty path segments, or a segment starting
+with a digit raise `ValueError` before a query is sent. This rule applies to
+SQL generated-query helpers, not MongoDB predicates.
+
 SQL repositories support common predicate operators and also provide raw SQL
-methods for advanced queries:
+methods for advanced queries. Do not include Cosmos SQL aliases such as
+`c.name` or `c.address.city` in generated-query field names; generated SQL adds
+the `c.` alias automatically. Use raw SQL with parameters for explicit aliases,
+array indexing, functions, projections, aggregations, or other complex Cosmos
+SQL expressions:
 
 ```python
 results = await repo.query_raw_dynamic_cursor_async(

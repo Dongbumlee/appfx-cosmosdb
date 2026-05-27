@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "appfx-cosmosdb"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python helpers for Azure Cosmos DB SQL and MongoDB APIs."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -65,6 +65,9 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
+markers = [
+  "live: opt-in tests that exercise real Azure Cosmos DB resources",
+]
 
 [tool.coverage.run]
 branch = true

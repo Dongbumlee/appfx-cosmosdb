@@ -110,6 +110,27 @@ customers = await repo.find_async({
 })
 ```
 
+### Generated-query field paths
+
+SQL predicate dictionary keys and `SortField` names are validated before the
+repository sends generated SQL to Cosmos DB. Generated-query field paths must be
+simple identifiers or dotted nested paths. Each path segment must start with a
+letter or underscore and then contain only letters, digits, or underscores.
+
+Accepted examples include `name`, `is_active`, `address.city`, and
+`profile.created_at`. Rejected examples include `address-city`,
+`address[0].city`, `name; DROP`, empty path segments, and segments starting
+with a digit. Invalid generated-query field paths raise `ValueError` before a
+query is sent.
+
+Do not include Cosmos SQL aliases such as `c.name` or `c.address.city` in
+generated-query field names. They are syntactically valid dotted paths, but the
+repository adds the `c.` alias automatically when generating SQL. Use raw SQL
+methods with parameters when a query needs explicit aliases, array indexing,
+functions, projections, aggregations, or other complex expressions. This
+validation applies to generated SQL from SQL repository predicate and sort
+helpers; it does not apply to MongoDB predicates.
+
 ## Raw SQL operations
 
 Use raw SQL methods when the predicate builder is not expressive enough:

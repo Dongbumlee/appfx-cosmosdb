@@ -70,7 +70,9 @@ async with CustomerRepository(connection_string, "app") as repo:
 
 SQL entities automatically include a computed `/_partitionKey` value derived
 from the entity id. Use raw SQL methods for projections, aggregations, and other
-queries that are clearer in Cosmos DB SQL syntax.
+queries that are clearer in Cosmos DB SQL syntax. SQL predicate and `SortField`
+names are validated as simple or dotted field paths; see the SQL/Core API
+reference for details.
 
 ## MongoDB API quick start
 
@@ -134,9 +136,42 @@ The default test suite is unit-test focused:
 python -m pytest
 ```
 
-Live Cosmos DB tests require explicit integration setup, including a Cosmos DB
-account, API-specific connection settings, and any required Azure RBAC or
-network access. Do not put credentials in source-controlled files.
+Live Cosmos DB tests are marked `live` and skip unless explicitly requested and
+their required environment variables are present. They are opt-in because they
+use real Azure resources, credentials, and network access. Do not put account
+keys, connection strings, tenant IDs, subscription IDs, or private endpoints in
+source-controlled files.
+
+For SQL/Core API live tests, sign in with a credential supported by
+`DefaultAzureCredential` (for example, `az login`) and grant the identity access
+to the target Cosmos DB account and existing test container. Then set:
+
+```powershell
+$env:COSMOS_SQL_ACCOUNT_URL = "https://<account>.documents.azure.com:443/"
+$env:COSMOS_SQL_DATABASE = "<database-name>"
+$env:COSMOS_SQL_CONTAINER = "<container-name>"
+```
+
+For MongoDB API live tests, set the connection string only in your shell or
+secret store, never in committed files:
+
+```powershell
+$env:COSMOS_MONGO_CONNECTION_STRING = "<mongodb-connection-string>"
+$env:COSMOS_MONGO_DATABASE = "<database-name>"
+$env:COSMOS_MONGO_COLLECTION = "<collection-name>"
+```
+
+Run the live tests explicitly:
+
+```powershell
+python -m pytest -m live
+```
+
+As an alternative explicit opt-in for targeted runs, set
+`COSMOS_LIVE_TESTS=1` in the current shell.
+
+The default `python -m pytest` command remains safe for local development and CI
+when these variables are not set.
 
 ## Development validation
 
