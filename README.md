@@ -1,5 +1,11 @@
 # appfx-cosmosdb
 
+[![CI](https://github.com/Dongbumlee/appfx-cosmosdb/actions/workflows/ci.yml/badge.svg)](https://github.com/Dongbumlee/appfx-cosmosdb/actions/workflows/ci.yml)
+[![Publish](https://github.com/Dongbumlee/appfx-cosmosdb/actions/workflows/publish.yml/badge.svg)](https://github.com/Dongbumlee/appfx-cosmosdb/actions/workflows/publish.yml)
+[![PyPI](https://img.shields.io/pypi/v/appfx-cosmosdb.svg)](https://pypi.org/project/appfx-cosmosdb/)
+[![Python versions](https://img.shields.io/pypi/pyversions/appfx-cosmosdb.svg)](https://pypi.org/project/appfx-cosmosdb/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Dongbumlee/appfx-cosmosdb/blob/main/LICENSE)
+
 `appfx-cosmosdb` provides type-safe, async repository helpers for Azure Cosmos DB
 using either the SQL/Core API or the MongoDB API. The package keeps the two API
 surfaces explicit so applications import only the implementation they use.
